@@ -14,32 +14,39 @@
 
   <body>
     <div class="container">
-    <div class="weather-app">
-      <div class="row">
-      <form class="city-form">
-        <input
-        type="search"
-        placeholder="Type a city..."
-        autofocus="on"
-        autocomplete="off"
-        id="city-input" />
-        <input type="submit" id="search" value="Search"/>
-      </form>
-      <button id="locate"/>Use Current Location</button>
-    </div>
-      <h1>City Name</h1>
-      <div class="row">
-        <ul>
-          <li id="date"></li>
-          <li id="weather-summary"></li>
-        </ul>
-      </div>
-      <div class="row">
-      <div class="column">
-          <i class="fas fa-cloud-sun"></i>
-          <span id="tempNum"></span> <sup><a href="" id="celsius">°C</a> |<a href="" id="fahrenheit">°F</a></sup>
+      <div class="weather-app">
+        <div class="row">
+            <form class="city-form">
+              <input
+              type="search"
+              placeholder="Type a city..."
+              autofocus="on"
+              autocomplete="off"
+              id="city-input" />
+              <input type="submit" id="search" value="Search"/>
+              <button id="locate"/>Use Current Location</button>
+            </form>
         </div>
-        <div class="column">
+        <div class="row">
+          <div class="col-6">
+            <h1>City Name</h1>
+              <ul>
+                <li id="date"></li>
+                <li id="weather-summary"></li>
+              </ul>
+            </div>
+        </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="clearfix">
+            <div class="float-left">
+              <i class="fas fa-cloud-sun float-left"></i>
+              <span id="tempNum"><strong>0</strong></span>
+              <small class="temp-units"><a href="" id="celsius">°C</a> |<a href="" id="fahrenheit">°F</a></small>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
           <div id="weatherInfo">
             <ul>
               <li>Humidity: <span id=humidity>0</span>%</li>
@@ -47,8 +54,8 @@
             </ul>
           </div>
         </div>
+      </div>
     </div>
-  </div>
   <script src="src/index.js"></script>
   </body>
 </html>

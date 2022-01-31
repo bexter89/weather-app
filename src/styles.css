@@ -4,14 +4,6 @@ body {
   text-align: left;
 }
 
-.container {
-  width: 100%;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .weather-app {
   border: 1px solid lightgray;
   padding: 15px;
@@ -20,7 +12,7 @@ body {
   max-width: 600px;
 }
 
-.row {
+.continer {
   display: flex;
 }
 
@@ -35,7 +27,6 @@ body {
 
 #locate {
   background-color: green;
-  display: flex;
   color: white;
   border-radius: 3px;
   border: none;
@@ -65,6 +56,7 @@ li {
 
 i {
   font-size: 50px;
+  margin-right: 15px;
 }
 
 h1 {
@@ -73,18 +65,18 @@ h1 {
   line-height: 28px;
   margin-bottom: 0px;
 }
+
 #tempNum {
   font-family: sans-serif;
   color: black;
   font-weight: 400;
-  font-size: 3em;
+  font-size: 64px;
+  line-height: 1;
 }
 
-#weatherInfo {
-  margin-left: 2rem important!;
-  padding-left: 2rem;
+.temp-units {
+  position: relative;
+  font-size: 16px;
+  top: -35px;
 }
 
-sup {
-  vertical-align: top;
-}
