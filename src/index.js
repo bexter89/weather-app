@@ -1,5 +1,6 @@
 let apiKey = "bafdfac4d6d7b1fc3d3952df39f393b7";
 let apiBaseURL = `https://api.openweathermap.org/data/2.5/weather?`;
+let fahTemp = 0;
 
 let cityNameH1 = document.querySelector("h1");
 let cityNameInput = document.querySelector("#city-input");
@@ -9,18 +10,25 @@ let temp = document.querySelector("#tempNum");
 let humEl = document.querySelector("#humidity");
 let windEl = document.querySelector("#wind");
 let weatherSummary = document.querySelector("#weather-summary");
+let weatherIcon = document.querySelector('#weather-icon')
 
 function showWeatherInfo(weather) {
   let city = weather.data.name;
   let summary = weather.data.weather[0].description;
   let tempInF = Math.round(weather.data.main.temp);
+  fahTemp = Math.round(weather.data.main.temp);
   let humidity = Math.round(weather.data.main.humidity);
   let wind = Math.round(weather.data.wind.speed);
+  let icon = weather.data.weather[0].icon;
+  let iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`
+
   cityNameH1.innerHTML = city;
   temp.innerHTML = tempInF;
   humEl.innerHTML = humidity;
   windEl.innerHTML = wind;
   weatherSummary.innerHTML = summary;
+  weatherIcon.setAttribute('src', iconURL)
+  weatherIcon.setAttribute('alt', summary)
 }
 
 function searchByCity(city) {
@@ -35,7 +43,7 @@ function handleSubmit(event) {
   cityNameInput.value = "";
 }
 
-let cityForm = document.querySelector(".city-form");
+let cityForm = document.querySelector("#city-form");
 cityForm.addEventListener("submit", handleSubmit);
 
 function locate(position) {
@@ -83,13 +91,19 @@ dateLi.innerHTML = updateDate(currDate);
 
 function fClick(event) {
   event.preventDefault();
-  temp.innerHTML = 19;
+  cTemp.classList.remove('active')
+  fTemp.classList.add('active')
+  temp.innerHTML = fahTemp;
 }
 
 function cClick(event) {
   event.preventDefault();
-  temp.innerHTML = Math.round((Number(temp.innerHTML) * 9) / 5 + 32);
+  fTemp.classList.remove('active')
+  cTemp.classList.add('active')
+  temp.innerHTML = Math.round(((fahTemp - 32) * 5/9));
 }
 
 fTemp.addEventListener("click", fClick);
 cTemp.addEventListener("click", cClick);
+
+searchByCity("New York");

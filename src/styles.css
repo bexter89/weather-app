@@ -4,6 +4,10 @@ body {
   text-align: left;
 }
 
+div .weather-detail {
+  display: inline;
+}
+
 .weather-app {
   border: 1px solid lightgray;
   padding: 15px;
@@ -12,8 +16,13 @@ body {
   max-width: 600px;
 }
 
-.continer {
-  display: flex;
+.weather-app-wrapper {
+  max-width: 600px;
+  margin: 30px auto;
+}
+
+.overview {
+  margin-bottom: 20px;
 }
 
 #search {
@@ -45,8 +54,9 @@ body {
 #weather-summary {
   text-transform: capitalize;
 }
+
 ul {
-  margin: 0 0 10px;
+  margin: 0;
   padding: 0;
 }
 
@@ -66,17 +76,35 @@ h1 {
   margin-bottom: 0px;
 }
 
-#tempNum {
-  font-family: sans-serif;
-  color: black;
-  font-weight: 400;
+.weather-temperature img {
+  margin-right: 5px;
+  height: 64px;
+  width: 64px;
+  vertical-align: top;
+}
+
+.weather-temperature strong {
+  color: rgb(33, 33, 33);
   font-size: 64px;
   line-height: 1;
+  font-weight: 400;
 }
 
 .temp-units {
   position: relative;
   font-size: 16px;
-  top: -35px;
+  top: -34px;
 }
 
+.temp-units a {
+  text-decoration: none;
+}
+
+.weather-temperature .active {
+  color: rgb(33, 33, 33);
+  cursor: default;
+}
+
+.weather-temperature .active:hover {
+  text-decoration: none;
+}

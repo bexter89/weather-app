@@ -14,40 +14,46 @@
 
   <body>
     <div class="container">
-      <div class="weather-app">
-        <div class="row">
-            <form class="city-form">
+      <div class="weather-app-wrapper">
+        <div class="weather-app">
+          <div class="row">
+            <div class="col-8">
+            <form id="city-form" class="mb-3">
               <input
               type="search"
               placeholder="Type a city..."
               autofocus="on"
               autocomplete="off"
+              class="form-control"
               id="city-input" />
+            </div>
+            <div class="col-4">
               <input type="submit" id="search" value="Search"/>
-              <button id="locate"/>Use Current Location</button>
             </form>
-        </div>
-        <div class="row">
-          <div class="col-6">
-            <h1>City Name</h1>
-              <ul>
-                <li id="date"></li>
-                <li id="weather-summary"></li>
-              </ul>
-            </div>
-        </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="clearfix">
-            <div class="float-left">
-              <i class="fas fa-cloud-sun float-left"></i>
-              <span id="tempNum"><strong>0</strong></span>
-              <small class="temp-units"><a href="" id="celsius">°C</a> |<a href="" id="fahrenheit">°F</a></small>
-            </div>
           </div>
-        </div>
-        <div class="col-6">
-          <div id="weatherInfo">
+          <button id="locate" class="w-200"/>Use Current Location</button>
+          </div>
+          <div class="overview">
+            <h1>City Name</h1>
+            <ul>
+              <li> Last Updated: <span id="date"></li>
+              <li id="weather-summary"></li>
+            </ul>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="clearfix weather-temperature">
+                <img src="" alt="no image" id="weather-icon" class="float-left" />
+                <div class="float-left weather-detail">
+                  <strong id="tempNum"></strong
+                  ><span class="temp-units"
+                    ><a href="#" id="fahrenheit" class="active">°F</a> |
+                    <a href="#" id="celsius">°C</a></span
+                  >
+                </div>
+              </div>
+            </div>
+          <div class="col-6">
             <ul>
               <li>Humidity: <span id=humidity>0</span>%</li>
               <li>Wind: <span id=wind>0</span> mph</li>
@@ -55,7 +61,13 @@
           </div>
         </div>
       </div>
+      <small>
+        <a
+          href="https://github.com/bexter89/weather-app"
+          target="_blank"
+          >Open-source code</a> by Rebekah Cruz
+      </small>
     </div>
-  <script src="src/index.js"></script>
+    <script src="src/index.js"></script>
   </body>
 </html>
