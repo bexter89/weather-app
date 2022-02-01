@@ -1,6 +1,8 @@
 let apiKey = "bafdfac4d6d7b1fc3d3952df39f393b7";
 let apiBaseURL = `https://api.openweathermap.org/data/2.5/weather?`;
 let fahTemp = 0;
+let fiveDayFahHighTemp = [];
+let fiveDayFahLowTemp = [];
 let theme = 'daytime';
 
 let cityNameH1 = document.querySelector("h1");
@@ -21,7 +23,6 @@ function formatDate(timestamp) {
 }
 
 function changeBackground(theme, weatherCode) {
-
   let htmlBody = document.querySelector('html')
 
   //thunderstorm
@@ -203,14 +204,16 @@ function updateDate(timeZoneOffset, weatherCode) {
 
   dateLi.innerHTML = `${day} ${inputCityTime}${inputCityHour < 12 ? " AM" : " PM"}`
   localDateLi.innerHTML = `${day} ${time}${hour < 12 ? " AM" : " PM"}`
-
 };
+
+
 
 function fClick(event) {
   event.preventDefault();
   cTemp.classList.remove('active')
   fTemp.classList.add('active')
   temp.innerHTML = fahTemp;
+  updateFiveDayTempCUnits()
 };
 
 function cClick(event) {
@@ -218,7 +221,36 @@ function cClick(event) {
   fTemp.classList.remove('active')
   cTemp.classList.add('active')
   temp.innerHTML = Math.round(((fahTemp - 32) * 5/9));
+  updateFiveDayTempFUnits()
 };
+
+function updateFiveDayTempFUnits() {
+  let dailyHighs = document.querySelectorAll('.future-high')
+  console.log(dailyHighs)
+  dailyHighs.forEach(day => {
+    fiveDayFahHighTemp.push(Number(day.innerHTML.replace('°', '')))
+    let dailyTemp = Number(day.innerHTML.replace('°', ''))
+    day.innerHTML = Math.round(((dailyTemp - 32) * 5/9))+ '°';
+  })
+  let dailyLows = document.querySelectorAll('.future-low')
+  dailyLows.forEach(day => {
+    fiveDayFahLowTemp.push(Number(day.innerHTML.replace('°', '')))
+    let dailyTemp = Number(day.innerHTML.replace('°', ''))
+    day.innerHTML = Math.round(((dailyTemp - 32) * 5/9)) + '°';
+  })
+}
+
+function updateFiveDayTempCUnits () {
+  let dailyHighs = document.querySelectorAll('.future-high')
+  console.log(dailyHighs)
+  dailyHighs.forEach((day, index) => {
+    day.innerHTML = fiveDayFahHighTemp[index]+ '°'
+  })
+  let dailyLows = document.querySelectorAll('.future-low')
+  dailyLows.forEach((day, index) => {
+    day.innerHTML = fiveDayFahLowTemp[index]+ '°'
+  })
+}
 
 fTemp.addEventListener("click", fClick);
 cTemp.addEventListener("click", cClick);
