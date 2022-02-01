@@ -1,6 +1,7 @@
 let apiKey = "bafdfac4d6d7b1fc3d3952df39f393b7";
 let apiBaseURL = `https://api.openweathermap.org/data/2.5/weather?`;
 let fahTemp = 0;
+let theme = 'daytime';
 
 let cityNameH1 = document.querySelector("h1");
 let cityNameInput = document.querySelector("#city-input");
@@ -19,25 +20,7 @@ function formatDate(timestamp) {
   return week[day];
 }
 
-function showWeatherInfo(weather) {
-  console.log(weather)
-  let city = weather.data.name;
-  let summary = weather.data.weather[0].description;
-  let tempInF = Math.round(weather.data.main.temp);
-  fahTemp = Math.round(weather.data.main.temp);
-  let humidity = Math.round(weather.data.main.humidity);
-  let wind = Math.round(weather.data.wind.speed);
-  let icon = weather.data.weather[0].icon;
-  let weatherCode = weather.data.weather[0].id;
-  let hour = new Date(weather.data.dt).getHours();
-  console.log('hour ', hour)
-  let theme = 'daytime';
-  if (hour < 1) {
-    hour = `0${hour}`;
-  }
-  if (hour > 17) {
-    theme = 'nighttime'
-  }
+function changeBackground(theme, weatherCode) {
 
   let htmlBody = document.querySelector('html')
 
@@ -76,9 +59,9 @@ function showWeatherInfo(weather) {
   // clear
   if (weatherCode === 800) {
     theme === 'daytime' ?
-    htmlBody.style.background = `https://images.unsplash.com/photo-1623846736569-1d90cba76d65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2274&q=80') no-repeat center center fixed`
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1623846736569-1d90cba76d65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2274&q=80') no-repeat center center fixed`
     :
-    htmlBody.style.background = `url('https://images.unsplash.com/photo-1473596477327-988dba107d1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2372&q=80`;
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1473596477327-988dba107d1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2372&q=80')no-repeat center center fixed`;
   }
   //clouds
   if (weatherCode >= 801 && weatherCode < 900) {
@@ -87,7 +70,20 @@ function showWeatherInfo(weather) {
     :
     htmlBody.style.background = `url('https://images.unsplash.com/photo-1536183922588-166604504d5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2369&q=80') no-repeat center center fixed`;
   }
+}
 
+function showWeatherInfo(weather) {
+  console.log(weather.data)
+  let city = weather.data.name;
+  let summary = weather.data.weather[0].description;
+  let tempInF = Math.round(weather.data.main.temp);
+  fahTemp = Math.round(weather.data.main.temp);
+  let humidity = Math.round(weather.data.main.humidity);
+  let wind = Math.round(weather.data.wind.speed);
+  let icon = weather.data.weather[0].icon;
+  let weatherCode = weather.data.weather[0].id;
+
+  updateDate(weather.data.timezone, weatherCode)
 
   let iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`
   let coord = weather.data.coord;
@@ -122,9 +118,7 @@ function displayFutureForecast (futureForecast) {
         </div>`;
     displayWeatherHTML = dailyWeatherHTML + `</div>`
   });
-
   forecastElement.innerHTML = dailyWeatherHTML
-
 };
 
 
@@ -163,7 +157,11 @@ function searchByLocate(event) {
 let locateBtn = document.querySelector("#locate");
 locateBtn.addEventListener("click", searchByLocate);
 
-function updateDate(date) {
+let dateLi = document.querySelector("#date");
+let localDateLi = document.querySelector("#local-date");
+
+function updateDate(timeZoneOffset, weatherCode) {
+  let date = new Date()
   let days = [
     "Sunday",
     "Monday",
@@ -176,6 +174,7 @@ function updateDate(date) {
 
   let day = days[date.getDay()];
   let hour = date.getHours();
+
   if (hour < 10) {
     hour = `0${hour}`;
   }
@@ -183,13 +182,29 @@ function updateDate(date) {
   if (min < 10) {
     min = `0${min}`;
   }
-  let time = `${hour}:${min}`;
-  return `${day} ${time}${hour < 12 ? " AM" : " PM"}`;
-};
 
-let dateLi = document.querySelector("#date");
-let currDate = new Date();
-dateLi.innerHTML = updateDate(currDate);
+  let time = `${hour}:${min}`;
+
+  let inputCityTimeZoneOffset = timeZoneOffset / 3600;
+  let utcTime = date.getUTCHours();
+  let inputCityHour = utcTime + inputCityTimeZoneOffset
+  let inputCityTime = `${inputCityHour}:${min}`;
+
+  if (inputCityHour < 1) {
+    inputCityHour = `0${inputCityHour}`;
+  }
+  if (inputCityHour > 17 || inputCityHour < 6) {
+    theme = 'nighttime'
+  } else {
+    theme = 'daytime'
+  }
+
+  changeBackground(theme, weatherCode)
+
+  dateLi.innerHTML = `${day} ${inputCityTime}${inputCityHour < 12 ? " AM" : " PM"}`
+  localDateLi.innerHTML = `${day} ${time}${hour < 12 ? " AM" : " PM"}`
+
+};
 
 function fClick(event) {
   event.preventDefault();
