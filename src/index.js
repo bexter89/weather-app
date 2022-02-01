@@ -1,6 +1,7 @@
 let apiKey = "bafdfac4d6d7b1fc3d3952df39f393b7";
 let apiBaseURL = `https://api.openweathermap.org/data/2.5/weather?`;
 let fahTemp = 0;
+let feelsTemp = 0;
 let fiveDayFahHighTemp = [];
 let fiveDayFahLowTemp = [];
 let theme = 'daytime';
@@ -10,6 +11,7 @@ let cityNameInput = document.querySelector("#city-input");
 let fTemp = document.querySelector("#fahrenheit");
 let cTemp = document.querySelector("#celsius");
 let temp = document.querySelector("#tempNum");
+let tempFeelsLike = document.querySelector("#feels-like")
 let humEl = document.querySelector("#humidity");
 let windEl = document.querySelector("#wind");
 let weatherSummary = document.querySelector("#weather-summary");
@@ -74,6 +76,8 @@ function changeBackground(theme, weatherCode) {
 }
 
 function showWeatherInfo(weather) {
+  let feelsLike = Math.round(weather.data.main.feels_like);
+  feelsTemp = Math.round(weather.data.main.feels_like);
   let city = weather.data.name;
   let summary = weather.data.weather[0].description;
   let tempInF = Math.round(weather.data.main.temp);
@@ -93,6 +97,7 @@ function showWeatherInfo(weather) {
   humEl.innerHTML = humidity;
   windEl.innerHTML = wind;
   weatherSummary.innerHTML = summary;
+  tempFeelsLike.innerHTML = feelsLike;
   weatherIcon.setAttribute('src', iconURL)
   weatherIcon.setAttribute('alt', summary)
 };
@@ -161,7 +166,22 @@ let dateLi = document.querySelector("#date");
 let localDateLi = document.querySelector("#local-date");
 
 function updateDate(timeZoneOffset, weatherCode) {
-  let date = new Date()
+  let currentDate = new Date()
+
+  let months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
   let days = [
     "Sunday",
     "Monday",
@@ -171,22 +191,22 @@ function updateDate(timeZoneOffset, weatherCode) {
     "Friday",
     "Saturday"
   ];
-
-  let day = days[date.getDay()];
-  let hour = date.getHours();
-
+  let monthNum = currentDate.getMonth()
+  let monthName = months[monthNum]
+  let date = currentDate.getDate();
+  let day = days[currentDate.getDay()];
+  let hour = currentDate.getHours();
   if (hour < 10) {
     hour = `0${hour}`;
   }
-  let min = date.getMinutes();
+  let min = currentDate.getMinutes();
   if (min < 10) {
     min = `0${min}`;
   }
-
   let time = `${hour}:${min}`;
-
+  let formattedDate = `${day}, ${monthName} ${date},`
   let inputCityTimeZoneOffset = timeZoneOffset / 3600;
-  let utcTime = date.getUTCHours();
+  let utcTime = currentDate.getUTCHours();
   let inputCityHour = utcTime + inputCityTimeZoneOffset
   let inputCityTime = `${inputCityHour}:${min}`;
 
@@ -201,7 +221,7 @@ function updateDate(timeZoneOffset, weatherCode) {
 
   changeBackground(theme, weatherCode)
 
-  dateLi.innerHTML = `${day} ${inputCityTime}${inputCityHour < 12 ? " AM" : " PM"}`
+  dateLi.innerHTML = `${formattedDate} ${inputCityTime}${inputCityHour < 12 ? " AM" : " PM"}`
   localDateLi.innerHTML = `${day} ${time}${hour < 12 ? " AM" : " PM"}`
 };
 
@@ -212,6 +232,7 @@ function fClick(event) {
   cTemp.classList.remove('active')
   fTemp.classList.add('active')
   temp.innerHTML = fahTemp;
+  tempFeelsLike.innerHTML = feelsTemp;
   updateFiveDayTempCUnits()
 };
 
@@ -220,6 +241,7 @@ function cClick(event) {
   fTemp.classList.remove('active')
   cTemp.classList.add('active')
   temp.innerHTML = Math.round(((fahTemp - 32) * 5/9));
+  tempFeelsLike.innerHTML = Math.round(((feelsTemp - 32) * 5/9));
   updateFiveDayTempFUnits()
 };
 
