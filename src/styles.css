@@ -70,20 +70,29 @@ i {
 }
 
 h1 {
+  color: #4d4b4b;
   font-size: 24px;
   font-weight: 100;
   line-height: 28px;
+  margin-top: 1em;
   margin-bottom: 0px;
 }
 
-h3 {
+h2 {
   font-size: 18px;
+  margin: 0;
+  color:
+}
+
+h3 {
+  font-size: 15px;
+  margin: 0;
 }
 
 .weather-temperature img {
   margin-right: 5px;
-  height: 64px;
-  width: 64px;
+  height: 70px;
+  width: 70px;
   vertical-align: top;
 }
 
@@ -111,6 +120,21 @@ h3 {
 
 .weather-temperature .active:hover {
   text-decoration: none;
+}
+
+#weather-icon {
+  padding: 0;
+  margin: 0;
+}
+
+.future-forecast-title {
+  color: #4d4b4b;
+}
+
+.future-temp-desc {
+  font-size: 10px;
+  line-height: 1;
+  margin: 0;
 }
 
 .future-temp{
