@@ -61,6 +61,30 @@ function searchByLocate(event) {
 let locateBtn = document.querySelector("#locate");
 locateBtn.addEventListener("click", searchByLocate);
 
+function get5dayForecast () {
+  let forecastElement = document.querySelector("#five-day-forecast")
+  let dailyWeatherHTML = `<div class="row">`;
+  let days = ['mon', 'tues', 'wed', 'thurs', 'fri'];
+
+  days.forEach((day)=> {
+    dailyWeatherHTML = dailyWeatherHTML +
+        `<div class="col">
+          <h3 id="title-day1">${day}</h3>
+          <img src="" alt="no image" id="weather-icon" class="float-left" />
+          <div class="future-temp">
+            <span class="future-high">72°</span>
+            |
+            <span class="future-low">45°</span>
+          </div>
+        </div>`;
+    displayWeatherHTML = dailyWeatherHTML + `</div>`
+  })
+
+
+  forecastElement.innerHTML = dailyWeatherHTML
+
+}
+
 function updateDate(date) {
   let days = [
     "Sunday",
@@ -107,3 +131,4 @@ fTemp.addEventListener("click", fClick);
 cTemp.addEventListener("click", cClick);
 
 searchByCity("New York");
+get5dayForecast();

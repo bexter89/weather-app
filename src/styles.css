@@ -76,6 +76,10 @@ h1 {
   margin-bottom: 0px;
 }
 
+h3 {
+  font-size: 18px;
+}
+
 .weather-temperature img {
   margin-right: 5px;
   height: 64px;
@@ -107,4 +111,16 @@ h1 {
 
 .weather-temperature .active:hover {
   text-decoration: none;
+}
+
+.future-temp{
+  font-size:13px;
+}
+
+.future-low, .future-high {
+  font-size: 15px;
+}
+
+.future-low {
+  opacity: 0.5;
 }
