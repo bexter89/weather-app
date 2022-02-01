@@ -204,11 +204,9 @@ function updateDate(timeZoneOffset, weatherCode) {
     min = `0${min}`;
   }
   let time = `${hour}:${min}`;
-  let formattedDate = `${day}, ${monthName} ${date},`
   let inputCityTimeZoneOffset = timeZoneOffset / 3600;
   let utcTime = currentDate.getUTCHours();
   let inputCityHour = utcTime + inputCityTimeZoneOffset
-  let inputCityTime = `${inputCityHour}:${min}`;
 
   if (inputCityHour < 1) {
     inputCityHour = `0${inputCityHour}`;
@@ -218,11 +216,19 @@ function updateDate(timeZoneOffset, weatherCode) {
   } else {
     theme = 'daytime'
   }
+  if (inputCityHour >= 24) {
+    inputCityHour = inputCityHour - 24
+    day = days[currentDate.getDay() + 1];
+    date = currentDate.getDate() + 1;
+  }
+
+  let formattedDate = `${day}, ${monthName} ${date},`
+  let inputCityTime = `${inputCityHour}:${min}`;
 
   changeBackground(theme, weatherCode)
 
   dateLi.innerHTML = `${formattedDate} ${inputCityTime}${inputCityHour < 12 ? " AM" : " PM"}`
-  localDateLi.innerHTML = `${day} ${time}${hour < 12 ? " AM" : " PM"}`
+  localDateLi.innerHTML = `${time}${hour < 12 ? " AM" : " PM"}`
 };
 
 
