@@ -20,6 +20,7 @@ function formatDate(timestamp) {
 }
 
 function showWeatherInfo(weather) {
+  console.log(weather)
   let city = weather.data.name;
   let summary = weather.data.weather[0].description;
   let tempInF = Math.round(weather.data.main.temp);
@@ -27,6 +28,67 @@ function showWeatherInfo(weather) {
   let humidity = Math.round(weather.data.main.humidity);
   let wind = Math.round(weather.data.wind.speed);
   let icon = weather.data.weather[0].icon;
+  let weatherCode = weather.data.weather[0].id;
+  let hour = new Date(weather.data.dt).getHours();
+  console.log('hour ', hour)
+  let theme = 'daytime';
+  if (hour < 1) {
+    hour = `0${hour}`;
+  }
+  if (hour > 17) {
+    theme = 'nighttime'
+  }
+
+  let htmlBody = document.querySelector('html')
+
+  //thunderstorm
+  if (weatherCode < 299) {
+    theme === 'daytime' ?
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1620031616312-bfd7c67463a8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80') no-repeat center center fixed`
+    :
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1527572756213-1cda99a355c9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80') no-repeat center center fixed`
+  }
+  //drizzle
+  if (weatherCode >= 300 && weatherCode < 400) {
+    theme === 'daytime' ?
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1527766833261-b09c3163a791?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80') no-repeat center center fixed`
+    :
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1527572756213-1cda99a355c9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80') no-repeat center center fixed`;
+  }
+  // rain
+  if (weatherCode >= 500 && weatherCode < 600) {
+    theme === 'daytime' ?
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1523772721666-22ad3c3b6f90?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80') no-repeat center center fixed`
+    :
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1518182170546-07661fd94144?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2487&q=80') no-repeat center center fixed`;
+  }
+  //snow
+  if (weatherCode >= 600 && weatherCode < 700) {
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1506978520653-bb3accebb1a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2374&q=80') no-repeat center center fixed`;
+  }
+  // atmosphere/fog
+  if (weatherCode >= 700 && weatherCode < 800) {
+    theme === 'daytime' ?
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1487621167305-5d248087c724?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80') no-repeat center center fixed`
+    :
+    htmlBody.style.background = `url('    https://images.unsplash.com/photo-1522163723043-478ef79a5bb4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2443&q=80') no-repeat center center fixed`;
+  }
+  // clear
+  if (weatherCode === 800) {
+    theme === 'daytime' ?
+    htmlBody.style.background = `https://images.unsplash.com/photo-1623846736569-1d90cba76d65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2274&q=80') no-repeat center center fixed`
+    :
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1473596477327-988dba107d1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2372&q=80`;
+  }
+  //clouds
+  if (weatherCode >= 801 && weatherCode < 900) {
+    theme === 'daytime' ?
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80') no-repeat center center fixed`
+    :
+    htmlBody.style.background = `url('https://images.unsplash.com/photo-1536183922588-166604504d5e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2369&q=80') no-repeat center center fixed`;
+  }
+
+
   let iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`
   let coord = weather.data.coord;
   get5DayForecast(coord)

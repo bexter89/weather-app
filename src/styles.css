@@ -2,6 +2,18 @@ body {
   font-family: arial, sans-serif;
   color: grey;
   text-align: left;
+  background-color: transparent;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:100vh;
+}
+
+html {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 div .weather-detail {
@@ -12,8 +24,9 @@ div .weather-detail {
   border: 1px solid lightgray;
   padding: 15px;
   border-radius: 10px;
-  margin: 20px auto;
+  margin: 0 auto;
   max-width: 600px;
+  background-color: white;
 }
 
 .weather-app-wrapper {
@@ -53,6 +66,7 @@ div .weather-detail {
 
 #weather-summary {
   text-transform: capitalize;
+  margin-top: 4px;
 }
 
 ul {
@@ -64,6 +78,10 @@ li {
   list-style: none;
 }
 
+#updated-timestamp {
+  font-size: 10px;
+}
+
 i {
   font-size: 50px;
   margin-right: 15px;
@@ -71,11 +89,9 @@ i {
 
 h1 {
   color: #4d4b4b;
-  font-size: 24px;
   font-weight: 100;
   line-height: 28px;
-  margin-top: 1em;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 
 h2 {
@@ -128,6 +144,7 @@ h3 {
 }
 
 .future-forecast-title {
+  margin-top: 10px;
   color: #4d4b4b;
 }
 

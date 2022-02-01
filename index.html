@@ -16,25 +16,10 @@
     <div class="container">
       <div class="weather-app-wrapper">
         <div class="weather-app">
-          <div class="row justify-content-around">
-            <form id="city-form" class="mb-3">
-              <input
-              type="search"
-              placeholder="Type a city..."
-              autofocus="on"
-              autocomplete="off"
-              class="form-control"
-              id="city-input" />
-            </div>
-            <div class="row justify-content-around mb-3">
-              <input type="submit" id="search" value="Search"/>
-            </form>
-            <button id="locate" class="w-200"/>My Location</button>
-          </div>
           <div class="overview">
             <h1>City Name</h1>
             <ul>
-              <li> Last Updated: <span id="date"></li>
+              <li id="updated-timestamp">Last Updated: <span id="date"></li>
               <li id="weather-summary"></li>
             </ul>
           </div>
@@ -62,15 +47,31 @@
           </div>
           <div class="future-forecast" id="five-day-forecast">
           </div>
-
+          <div class="row justify-content-around">
+            <form id="city-form" class="mt-5">
+              <input
+              type="search"
+              placeholder="Enter a city..."
+              autofocus="on"
+              autocomplete="off"
+              class="form-control"
+              id="city-input" />
+            </div>
+            <div class="row justify-content-around mt-3">
+              <input type="submit" id="search" value="Search"/>
+            </form>
+            <button id="locate" class="w-200"/>My Location</button>
+          </div>
         </div>
       </div>
+      <footer class="text-center">
       <small>
         <a
           href="https://github.com/bexter89/weather-app"
           target="_blank"
           >Open-source code</a> by Rebekah Cruz
       </small>
+    </footer>
     </div>
     <script src="src/index.js"></script>
   </body>
