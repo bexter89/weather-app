@@ -74,7 +74,6 @@ function changeBackground(theme, weatherCode) {
 }
 
 function showWeatherInfo(weather) {
-  console.log(weather.data)
   let city = weather.data.name;
   let summary = weather.data.weather[0].description;
   let tempInF = Math.round(weather.data.main.temp);
@@ -226,7 +225,6 @@ function cClick(event) {
 
 function updateFiveDayTempFUnits() {
   let dailyHighs = document.querySelectorAll('.future-high')
-  console.log(dailyHighs)
   dailyHighs.forEach(day => {
     fiveDayFahHighTemp.push(Number(day.innerHTML.replace('°', '')))
     let dailyTemp = Number(day.innerHTML.replace('°', ''))
@@ -242,7 +240,6 @@ function updateFiveDayTempFUnits() {
 
 function updateFiveDayTempCUnits () {
   let dailyHighs = document.querySelectorAll('.future-high')
-  console.log(dailyHighs)
   dailyHighs.forEach((day, index) => {
     day.innerHTML = fiveDayFahHighTemp[index]+ '°'
   })
